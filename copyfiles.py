@@ -14,7 +14,7 @@ import sys
 def copiar_arquivos(origem, destino):
     if not os.path.exists(destino):
         os.makedirs(destino)
-
+    contador_ficheiros = 0
     for root, dirs, files in os.walk(origem):
         for file in files:
             # Nome do subdiretório relativo à origem
@@ -38,8 +38,10 @@ def copiar_arquivos(origem, destino):
 
             caminho_origem = os.path.join(root, file)
             shutil.copy2(caminho_origem, caminho_destino)
+            contador_ficheiros +=1
             print(f"Copiado: {caminho_origem} -> {caminho_destino}")
 
+    print(f"Total de ficheiros copiados: {contador_ficheiros}")
 
 if __name__ == "__main__":
     if len(sys.argv) == 3:
