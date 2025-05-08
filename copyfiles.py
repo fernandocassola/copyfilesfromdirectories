@@ -1,14 +1,15 @@
 import os
 import shutil
+import sys
 
 # Esta aplicação permite copiar todos os ficheiros que se encontram em sub diretorios, de um diretorio base, para outro diretorio.
 # Permite responder à forma como o moodle descarrega os trabalhos. Cada estudante um sub diretorio, o que nos obriga a ir copiar tudo um a um.
 # com esta abordagem, além de copiarmos todos os ficheiros para um único diretorio, tb renomeia cada ficheiro com o nome do estudante.
-# ATENÇÃO: aos nomes dos subdiretorios que podem ser alterados para o local indicado
+# ATENÇÃO: aos nomes dos subdiretorios que podem ser alterados para o local indicado ou passar como parametro
 
 #Fernando Cassola (maio 2025)
 
-# Para correr basta: python copyFiles.py
+# Para correr basta: python copyFiles.py "C:\origem" "C:\destino"
 
 def copiar_arquivos(origem, destino):
     if not os.path.exists(destino):
@@ -39,7 +40,13 @@ def copiar_arquivos(origem, destino):
             shutil.copy2(caminho_origem, caminho_destino)
             print(f"Copiado: {caminho_origem} -> {caminho_destino}")
 
-# Exemplo de uso
-origem = 'C:\\Projects\\aulas\\CopiarFicheirosMoodleParaDiretorioUnico\\origem' 
-destino = 'C:\\Projects\\aulas\\CopiarFicheirosMoodleParaDiretorioUnico\\destino'
+
+if __name__ == "__main__":
+    if len(sys.argv) == 3:
+        origem = sys.argv[1]
+        destino = sys.argv[2]
+    else:
+        origem = 'C:\\Projects\\aulas\\CopiarFicheirosMoodleParaDiretorioUnico\\origem'
+        destino = 'C:\\Projects\\aulas\\CopiarFicheirosMoodleParaDiretorioUnico\\destino'
+
 copiar_arquivos(origem, destino)
